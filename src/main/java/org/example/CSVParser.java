@@ -3,6 +3,7 @@ package org.example;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -10,14 +11,46 @@ public class CSVParser {
 
 
     public static ArrayList<List<String>> parseCSV(File CSVFile) {
+
+        try {
+
+            Scanner sc = new Scanner(CSVFile);
+
+            ArrayList<List<String>> nameTicketList = new ArrayList<>();
+            while (sc.hasNextLine()) {
+                nameTicketList.add(Arrays.stream(sc.nextLine().split(",")).toList());
+            }
+
+            return nameTicketList;
+
+        } catch (FileNotFoundException e) {
+            System.out.println(e);
+        }
         return null;
+
     }
 
     public static Boolean checkIfPersonPurchasedTicket(File CSVFile, String name) {
+
+        ArrayList<List<String>> nameTicketList = parseCSV(CSVFile);
+
+        for(List<String> list: nameTicketList) {
+            if (list.contains(name)) {
+                return true;
+            }
+        }
         return false;
     }
 
-    public static Integer checkHowManyTicketForPerson(File CVSFile, String name) {
+    public static Integer checkHowManyTicketForPerson(File CSVFile, String name) {
+
+        ArrayList<List<String>> nameTicketList = parseCSV(CSVFile);
+
+        for(List<String> list: nameTicketList) {
+            if(list.get(0).equals(name)) {
+                return Integer.parseInt(list.get(1));
+            }
+        }
         return 0;
     }
 

@@ -20,11 +20,13 @@ public class CSVParserTest {
         CSVFile = new File("ticketholders.csv");
 
         ArrayList<List<String>> nameTicketListTest = new ArrayList<List<String>>();
+        nameTicketListTest.add(List.of("Name:", "Quantity:"));
         nameTicketListTest.add(List.of("Jessica Jones", "2"));
         nameTicketListTest.add(List.of("Rebecca Johnson", "3"));
         nameTicketListTest.add(List.of("Sarah Roberts", "1"));
 
         assertEquals(nameTicketListTest, CSVParser.parseCSV(CSVFile));
+
     }
 
     @Test
