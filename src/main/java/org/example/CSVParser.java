@@ -2,48 +2,22 @@ package org.example;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class CSVParser {
 
 
+    public static ArrayList<List<String>> parseCSV(File CSVFile) {
+        return null;
+    }
 
     public static Boolean checkIfPersonPurchasedTicket(File CSVFile, String name) {
-
-        try {
-            Scanner sc = new Scanner(CSVFile);
-            sc.useDelimiter(",");
-
-            while(sc.hasNext()) {
-                if (sc.next().contains(name)) {
-                    return true;
-                }
-            }
-
-        } catch (FileNotFoundException e) {
-            System.out.println(e);
-        }
-
         return false;
     }
 
     public static Integer checkHowManyTicketForPerson(File CVSFile, String name) {
-
-        try {
-            Scanner sc = new Scanner(CVSFile);
-            sc.useDelimiter("\n");
-            while (sc.hasNext()) {
-                String line = sc.next();
-                String[] nameTicketsArray = line.split(",");
-                if (nameTicketsArray[0].equals(name)) {
-                    return Integer.parseInt(nameTicketsArray[1]);
-                }
-            }
-
-        } catch (FileNotFoundException e){
-            System.out.println(e);
-        }
-
         return 0;
     }
 
@@ -53,7 +27,7 @@ public class CSVParser {
 
 
         // take person's name
-        // importCSV
+        // importCSV to array
         // check if name is on the list
         // check how many tickets person purchased
 
