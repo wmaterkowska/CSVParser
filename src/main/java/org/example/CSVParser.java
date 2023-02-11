@@ -1,6 +1,7 @@
 package org.example;
 
 import com.opencsv.CSVReader;
+import com.opencsv.CSVReaderBuilder;
 
 import java.io.*;
 import java.nio.Buffer;
@@ -16,7 +17,7 @@ public class CSVParser {
 
         try{
             FileReader fileReader = new FileReader(CSVFile);
-            CSVReader csvReader = new CSVReader(fileReader);
+            CSVReader csvReader = new CSVReaderBuilder(fileReader).withSkipLines(1).build();
 
             ArrayList<List<String>> nameTicketsArray = new ArrayList<>();
 
