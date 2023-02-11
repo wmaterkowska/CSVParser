@@ -1,7 +1,7 @@
 package org.example;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
+import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,19 +14,18 @@ public class CSVParser {
 
         try {
 
-            Scanner sc = new Scanner(CSVFile);
+            BufferedReader br = new BufferedReader(new FileReader(CSVFile));
 
-            ArrayList<List<String>> nameTicketList = new ArrayList<>();
-            while (sc.hasNextLine()) {
-                nameTicketList.add(Arrays.stream(sc.nextLine().split(",")).toList());
+            ArrayList<List<String>> nameTicketArray = new ArrayList<>();
+            String line = "";
+            while ((line = br.readLine()) != null) {
+                nameTicketArray.add(Arrays.stream(line.split(",")).toList());
             }
+            return nameTicketArray;
 
-            return nameTicketList;
-
-        } catch (FileNotFoundException e) {
-            System.out.println(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        return null;
 
     }
 
