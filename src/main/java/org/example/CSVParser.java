@@ -1,5 +1,7 @@
 package org.example;
 
+import com.opencsv.CSVReader;
+
 import java.io.*;
 import java.nio.Buffer;
 import java.util.ArrayList;
@@ -12,21 +14,26 @@ public class CSVParser {
 
     public static ArrayList<List<String>> parseCSV(File CSVFile) {
 
-        try {
+        try{
+            FileReader fileReader = new FileReader(CSVFile);
+            CSVReader csvReader = new CSVReader(fileReader);
 
-            BufferedReader br = new BufferedReader(new FileReader(CSVFile));
+            ArrayList<List<String>> nameTicketsArray = new ArrayList<>();
 
-            ArrayList<List<String>> nameTicketArray = new ArrayList<>();
-            String line = "";
-            while ((line = br.readLine()) != null) {
-                nameTicketArray.add(Arrays.stream(line.split(",")).toList());
+            String[] nextRecord;
+            while ((nextRecord = csvReader.readNext()) != null) {
+                nameTicketsArray.add(Arrays.stream(nextRecord).toList());
             }
-            return nameTicketArray;
 
+            return nameTicketsArray;
+
+        } catch (FileNotFoundException e) {
+            System.out.println(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
+        return null;
     }
 
     public static Boolean checkIfPersonPurchasedTicket(File CSVFile, String name) {
